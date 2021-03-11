@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+
+  telegraf:
+    build:
+      context: ./telegraf
+      args:
+        - HOSTNAME=$HOSTNAME
+    restart: always
+    environment:
+      - HOST_MOUNT_PREFIX=/rootfs
+      - HOST_ETC=/rootfs/etc
+      - HOST_PROC=/rootfs/proc
+      - HOST_RUN=/rootfs/run
+      - HOST_SYS=/rootfs/sys
+      - HOST_VAR=/rootfs/var
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /:/rootfs:ro
